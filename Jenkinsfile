@@ -28,5 +28,5 @@ node('maven'){
 //            sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:~/'
       //  }
 
-    }
+   // }
 }
