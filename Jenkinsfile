@@ -9,7 +9,7 @@ node('maven'){
         sh "$mvnHome/bin/mvn clean test surefire-report:report-only"
         archiveArtifacts 'target/**/*'
         junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
+      //  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site', reportFiles: 'surefire-report.html', reportName: 'SureFireReportHTML', reportTitles: ''])
         echo "Executing Test Cases Completed"
     }
     //stage('Sonar Analysis'){
@@ -19,14 +19,14 @@ node('maven'){
         echo "Preparing artifacts"
         sh "$mvnHome/bin/mvn package -DskipTests=true"
     }
-    stage('Push to artifactory'){
-          sh "$mvnHome/bin/mvn deploy -DskipTests=true --settings settings.xml"
-    }
-    stage('Deployments'){
-        sh 'curl http://fa1b7800.ngrok.io/artifactory/maven-local/com/mycompany/app/my-app/1-RELEASE/my-app-1-RELEASE.jar -o my-app.jar'
-        sshagent(['deployment-id']) {
-            sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:~/'
-        }
+  //  stage('Push to artifactory'){
+  //        sh "$mvnHome/bin/mvn deploy -DskipTests=true --settings settings.xml"
+  //  }
+ //   stage('Deployments'){
+  //      sh 'curl http://fa1b7800.ngrok.io/artifactory/maven-local/com/mycompany/app/my-app/1-RELEASE/my-app-1-RELEASE.jar -o my-app.jar'
+  //      sshagent(['deployment-id']) {
+//            sh 'scp -o StrictHostKeyChecking=no my-app.jar ubuntu@172.31.94.69:~/'
+      //  }
 
     }
 }
